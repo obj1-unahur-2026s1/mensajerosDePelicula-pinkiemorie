@@ -1,0 +1,45 @@
+import mensajeros.*
+import destinos.*
+import paquetes.*
+
+
+describe "Test de primera parte" {
+
+    test "Roberto lleva un paquete pago en un camion con un acoplado al puente de brooklyn" {
+        camion.cantAcoplados(1)
+        roberto.vehiculo(camion)
+        paquete.esPago(true)
+        roberto.agregarPaquete(paquete)
+
+        assert.that(roberto.puedeEntregarEnDestino(puenteDeBrooklyn))
+    }
+
+    test "Neo tiene crédito y un paquete no pago, no puede llevar paquete a matrix" {
+        neo.tieneCredito(true)
+        paquete.esPago(false)
+        neo.agregarPaquete(paquete)
+
+        assert.notThat(neo.puedeEntregarEnDestino(matrix))
+    }
+
+    test "Chuck Norris no lleva ningun paquete a Matrix y no puede pasar" {
+        assert.notThat(chuckNorris.puedeEntregarEnDestino(matrix))
+    }
+
+    test "Roberto tiene un paquete pago en un camion con dos acoplados y no puede pasar al puente de brooklyn" {
+        camion.cantAcoplados(2)
+        roberto.vehiculo(camion)
+        paquete.esPago(true)
+        roberto.agregarPaquete(paquete)
+
+        assert.notThat(roberto.puedeEntregarEnDestino(puenteDeBrooklyn))
+    }
+
+    test "Neo tiene crédito y lleva un paquete pago a matrix" {
+        neo.tieneCredito(true)
+        paquete.esPago(true)
+        neo.agregarPaquete(paquete)
+
+        assert.that(neo.puedeEntregarEnDestino(matrix))
+    }
+}
